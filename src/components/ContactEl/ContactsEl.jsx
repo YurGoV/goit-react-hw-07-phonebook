@@ -1,6 +1,6 @@
 import React from "react";
-import {useDispatch} from "react-redux";
-import {delContact} from "../../redux/contactsSlice";
+// import {useDispatch} from "react-redux";
+// import {delContact} from "../../redux/contactsSlice";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import {Button, Stack, Typography} from "@mui/material";
@@ -12,10 +12,10 @@ import {
 
 
 export const ContactsEl = ({data}) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onDelete = (id) => {
-    dispatch(delContact(id));
+    // dispatch(delContact(id));
   }
 
   return (

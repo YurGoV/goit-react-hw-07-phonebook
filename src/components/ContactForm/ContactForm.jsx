@@ -1,9 +1,9 @@
 import React from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector } from "react-redux";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
-import {nanoid} from "nanoid";
-import {addContact} from "../../redux/contactsSlice";
+// import {nanoid} from "nanoid";
+// import {addContact} from "../../redux/contactsSlice";
 import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
@@ -13,7 +13,7 @@ import {buttonStyle, formStyles} from "./ContactForm.styled";
 export const ContactForm = () => {
   const {contacts} = useSelector(state => state.contacts);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
 
   const onFormSubmit = ({name = '', number = ''}) => {
@@ -28,12 +28,12 @@ export const ContactForm = () => {
       return toast(`${name} is already in contacts`);
     }
 
-    const id = nanoid();//adding new contact
-    dispatch(addContact({
+    // const id = nanoid();//adding new contact
+    /*dispatch(addContact({
       id,
       name,
       number,
-    }))
+    }))*/
 
     resetField('name');
     resetField('number');
