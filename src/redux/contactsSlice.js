@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {fetchContacts, deleteContact, addContact} from "./contactsOperations";
 
-
+//todo: https://www.edu.goit.global/uk/learn/5329046/31183/31258/textbook
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
@@ -14,7 +14,6 @@ const contactsSlice = createSlice({
      state.isLoading = true;
    },
    [fetchContacts.fulfilled](state, action) {
-     console.log('ffffffff', action.payload);
      state.isLoading = false;
      state.error = null;
      state.contacts = action.payload;
@@ -28,7 +27,6 @@ const contactsSlice = createSlice({
      state.isLoading = true;
    },
    [deleteContact.fulfilled](state, action) {
-     console.log('dddddddd', action.payload);
      state.isLoading = false;
      state.error = null;
      state.contacts = state.contacts.filter(item => item.id !== action.payload);
@@ -42,7 +40,6 @@ const contactsSlice = createSlice({
      state.isLoading = true;
    },
    [addContact.fulfilled](state, action) {
-     console.log('aaaaaaaaa', action.payload);
      state.isLoading = false;
      state.error = null;
      state.contacts = [...state.contacts, action.payload];
@@ -51,23 +48,8 @@ const contactsSlice = createSlice({
      state.isLoading = false;
      state.error = action.payload;
    },
-
-
-
- }
+ },
 });
 
-// export const {addContact, delContact} = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
 
-
-/*
-reducers: {
-  addContact(state, action) {
-    return {contacts: [...state.contacts, action.payload]}
-  },
-  delContact(state, action) {
-    return {contacts: state.contacts.filter(item => item.id !== action.payload)}
-  },
-}
-*/
