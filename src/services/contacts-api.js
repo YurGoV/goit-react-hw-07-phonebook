@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function fetchContacts() {
+export async function getContacts() {
   const response = await axios.get(`https://63bec5a9e348cb0762180cfe.mockapi.io/contacts`);
   console.log(response.data);
   return response.data;
@@ -11,9 +11,10 @@ export async function addContact(data) {
   console.log(response);
 }
 
-export async function deleteContact(id) {
+export async function delContact(id) {
   const response = await axios.delete(`https://63bec5a9e348cb0762180cfe.mockapi.io/contacts/${id}`);
-  console.log(response);
+  console.log(response.data.id);
+  return response.data.id;
 }
 
 /*
