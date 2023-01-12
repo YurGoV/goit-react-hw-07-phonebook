@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {getContacts, delContact} from "services/contacts-api";
+import {getContacts, delContact, postContact} from "services/contacts-api";
 
 
 export const fetchContacts = createAsyncThunk(
@@ -22,6 +22,21 @@ export const deleteContact = createAsyncThunk(
     try {
       console.log('idddd: ', id);
       const response = await delContact(id);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+
+  }
+);
+
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async (contactData, {rejectWithValue}) => {
+    try {
+      console.log('iaaaa: ', contactData);
+      const response = await postContact(contactData);
       console.log(response);
       return response;
     } catch (error) {
