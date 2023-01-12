@@ -4,15 +4,20 @@ import {ContactsEl} from "../ContactEl/ContactsEl";
 import {contactsStyles, titleStyles} from "./ContactsList.styled";
 import Box from "@mui/material/Box";
 import {Typography} from "@mui/material";
+import {toast} from "react-toastify";
 // import {addContact, deleteContact, fetchContacts} from "services/contacts-api";
 // import {getCLS} from "web-vitals";
 import {fetchContacts} from "redux/contactsOperations";
-
+import {selectFilter, selectFilteredContacts, selectError} from "redux/selectors";
 
 
 export const ContactsList = () => {
 
   const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
+  const filteredContacts = useSelector(selectFilteredContacts);
+  const error = useSelector(selectError);
+  console.log(error);
 
 
   // fetchContacts();
@@ -30,31 +35,40 @@ export const ContactsList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const {contacts} = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
-
-  function filteredData() {
-    if (filter.length > 0) {
-      return contacts.filter(el => el.name
-        .toLowerCase()
-        .includes(filter.toLowerCase()
-          .trim()));
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      toast('Sorry! Something is wrong ((');
     }
-    return contacts;
-    // return [];
-  }
+  }, [error])
 
-  if (filteredData().length > 0) {
+
+
+  // const contacts = useSelector(selectContacts);
+
+
+  // function filteredData() {
+  //   if (filter.length > 0) {
+  //     return contacts.filter(el => el.name
+  //       .toLowerCase()
+  //       .includes(filter.toLowerCase()
+  //         .trim()));
+  //   }
+  //   return contacts;
+  //   // return [];
+  // }
+
+  if (filteredContacts.length > 0) {
     return (
       <Box sx={contactsStyles}>
         <Typography component='h2' sx={titleStyles}>Contacts</Typography>
 
-        <ContactsEl data={filteredData()}></ContactsEl>
+        <ContactsEl data={filteredContacts}></ContactsEl>
       </Box>
     );
   }
 
-  if (filteredData().length === 0 && !filter) {
+  if (filteredContacts.length === 0 && !filter) {
     return (
       <Box sx={contactsStyles}>
         <Typography component='h2' sx={titleStyles}>
