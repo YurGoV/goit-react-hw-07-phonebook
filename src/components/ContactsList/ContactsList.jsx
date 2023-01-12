@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import {Typography} from "@mui/material";
 // import {addContact, deleteContact, fetchContacts} from "services/contacts-api";
 // import {getCLS} from "web-vitals";
-import {getContacts} from "redux/contactsOperations";
+import {fetchContacts} from "redux/contactsOperations";
 
 
 
@@ -27,7 +27,7 @@ export const ContactsList = () => {
   // getContacts();
 
   useEffect(() => {
-    dispatch(getContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   const {contacts} = useSelector(state => state.contacts);
