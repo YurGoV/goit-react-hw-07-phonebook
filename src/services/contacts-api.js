@@ -6,9 +6,10 @@ export async function getContacts() {
   return response.data;
 }
 
-export async function addContact(data) {
+export async function postContact(data) {
   const response = await axios.post(`https://63bec5a9e348cb0762180cfe.mockapi.io/contacts`, data);
-  console.log(response);
+  console.log(response.data);
+  return response.data;
 }
 
 export async function delContact(id) {

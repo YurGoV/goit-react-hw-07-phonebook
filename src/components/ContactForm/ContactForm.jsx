@@ -1,9 +1,9 @@
 import React from "react";
-import {useSelector } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 // import {nanoid} from "nanoid";
-// import {addContact} from "../../redux/contactsSlice";
+import {addContact} from "redux/contactsOperations";
 import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
@@ -13,14 +13,14 @@ import {buttonStyle, formStyles} from "./ContactForm.styled";
 export const ContactForm = () => {
   const {contacts} = useSelector(state => state.contacts);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
 
-  const onFormSubmit = ({name = '', number = ''}) => {
+  const onFormSubmit = ({name = '', phone = ''}) => {
     name = name.trim();
-    number = number.trim();
-    if (!name || !number) {
-      return toast('Please input name & number of Contact');
+    phone = phone.trim();
+    if (!name || !phone) {
+      return toast('Please input name & phone number of Contact');
     }
 
     const isAlreadyInContacts = contacts.find(contact => contact.name === name);
@@ -29,14 +29,15 @@ export const ContactForm = () => {
     }
 
     // const id = nanoid();//adding new contact
-    /*dispatch(addContact({
-      id,
+    const contactData = {
       name,
-      number,
-    }))*/
+      phone,
+    }
+    console.log(contactData);
+    dispatch(addContact(contactData))
 
     resetField('name');
-    resetField('number');
+    resetField('phone');
   };
 
   return (
@@ -44,7 +45,7 @@ export const ContactForm = () => {
     <Box component='form' noValidate autoComplete="on" onSubmit={handleSubmit(onFormSubmit)} sx={formStyles}
     >
       <TextField {...register("name")} label="Name" variant="standard" size="small"/>
-      <TextField {...register("number")} label="Number" variant="standard" size="small"/>
+      <TextField {...register("phone")} label="Number" variant="standard" size="small"/>
 
       <Button type="submit" variant="outlined" size="small" sx={buttonStyle}>
         Add
