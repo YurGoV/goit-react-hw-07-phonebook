@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector, useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 // import {nanoid} from "nanoid";
@@ -8,10 +8,11 @@ import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import {buttonStyle, formStyles} from "./ContactForm.styled";
+import {selectContacts} from "redux/selectors";
 
 
 export const ContactForm = () => {
-  const {contacts} = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
   const dispatch = useDispatch();
 
