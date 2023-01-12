@@ -5,11 +5,7 @@ import {selectLoader} from "redux/selectors";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import {Button, Stack, Typography} from "@mui/material";
-import {
-  contactsListStyles,
-  deleteButtonStyles,
-  Item
-} from "./ContactsEl.styled";
+import {contactsListStyles, deleteButtonStyles, Item} from "./ContactsEl.styled";
 
 
 export const ContactsEl = ({data}) => {

@@ -2,14 +2,12 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
-// import {nanoid} from "nanoid";
 import {addContact} from "redux/contactsOperations";
 import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import {buttonStyle, formStyles} from "./ContactForm.styled";
 import {selectContacts, selectLoader} from "redux/selectors";
-// import {Loader} from "../Loader/Loader";
 
 
 export const ContactForm = () => {
@@ -17,7 +15,6 @@ export const ContactForm = () => {
   const isLoading = useSelector(selectLoader);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
   const dispatch = useDispatch();
-
 
   const onFormSubmit = ({name = '', phone = ''}) => {
     name = name.trim();
@@ -31,12 +28,11 @@ export const ContactForm = () => {
       return toast(`${name} is already in contacts`);
     }
 
-    // const id = nanoid();//adding new contact
     const contactData = {
       name,
       phone,
     }
-    console.log(contactData);
+
     dispatch(addContact(contactData))
 
     resetField('name');
@@ -53,9 +49,9 @@ export const ContactForm = () => {
       <TextField {...register("phone")} label="Number" variant="standard" size="small"/>
 
 
-        <Button type="submit" variant="outlined" size="small" disabled={isLoading} sx={buttonStyle}>
-          Add
-        </Button>
+      <Button type="submit" variant="outlined" size="small" disabled={isLoading} sx={buttonStyle}>
+        Add
+      </Button>
 
     </Box>
   );
