@@ -8,15 +8,16 @@ import {toast} from "react-toastify";
 // import {addContact, deleteContact, fetchContacts} from "services/contacts-api";
 // import {getCLS} from "web-vitals";
 import {fetchContacts} from "redux/contactsOperations";
-import {selectFilter, selectFilteredContacts, selectError} from "redux/selectors";
+import {selectFilteredContacts, selectError, selectLoader} from "redux/selectors";
 
 
 export const ContactsList = () => {
 
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
+  // const filter = useSelector(selectFilter);
   const filteredContacts = useSelector(selectFilteredContacts);
   const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoader);
   console.log(error);
 
 
@@ -43,7 +44,6 @@ export const ContactsList = () => {
   }, [error])
 
 
-
   // const contacts = useSelector(selectContacts);
 
 
@@ -58,6 +58,24 @@ export const ContactsList = () => {
   //   // return [];
   // }
 
+
+  // todo: refactor logic
+  if (isLoading && filteredContacts.length === 0) {
+    return (
+      <Box sx={contactsStyles}>
+        <Typography component='h2' sx={titleStyles}>
+          Loading ....</Typography>
+      </Box>
+    );
+  } else if (!isLoading && filteredContacts.length === 0) {
+    return (
+      <Box sx={contactsStyles}>
+        <Typography component='h2' sx={titleStyles}>
+          There are no contacts</Typography>
+      </Box>
+    );
+  }
+
   if (filteredContacts.length > 0) {
     return (
       <Box sx={contactsStyles}>
@@ -68,21 +86,7 @@ export const ContactsList = () => {
     );
   }
 
-  if (filteredContacts.length === 0 && !filter) {
-    return (
-      <Box sx={contactsStyles}>
-        <Typography component='h2' sx={titleStyles}>
-          The Phonebook is Empty</Typography>
-      </Box>
-    );
-  }
 
-  return (
-    <Box sx={contactsStyles}>
-      <Typography component='h2' sx={titleStyles}>
-        There are no contacts, matching you query (</Typography>
-    </Box>
-  );
 };
 
 

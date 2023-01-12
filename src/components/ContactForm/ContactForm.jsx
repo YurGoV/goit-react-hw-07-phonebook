@@ -8,11 +8,13 @@ import {Button} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import {buttonStyle, formStyles} from "./ContactForm.styled";
-import {selectContacts} from "redux/selectors";
+import {selectContacts, selectLoader} from "redux/selectors";
+// import {Loader} from "../Loader/Loader";
 
 
 export const ContactForm = () => {
   const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectLoader);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
   const dispatch = useDispatch();
 
@@ -41,6 +43,8 @@ export const ContactForm = () => {
     resetField('phone');
   };
 
+
+  //todo: no loader in 1st start with empty contacts
   return (
 
     <Box component='form' noValidate autoComplete="on" onSubmit={handleSubmit(onFormSubmit)} sx={formStyles}
@@ -48,9 +52,10 @@ export const ContactForm = () => {
       <TextField {...register("name")} label="Name" variant="standard" size="small"/>
       <TextField {...register("phone")} label="Number" variant="standard" size="small"/>
 
-      <Button type="submit" variant="outlined" size="small" sx={buttonStyle}>
-        Add
-      </Button>
+
+        <Button type="submit" variant="outlined" size="small" disabled={isLoading} sx={buttonStyle}>
+          Add
+        </Button>
 
     </Box>
   );
